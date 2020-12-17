@@ -1,0 +1,86 @@
+public class MyClass {
+    public static void main(String args[])
+    {
+       int a[]= { 0, 0, 0 };
+       int n=a.length;
+       int output=minProduct(a,n);
+       System.out.println(output);
+    }
+    
+    static int minProduct(int a[],int n)
+    {
+       if(n==1)
+       {
+           return a[0]; 
+       }
+        
+        int negMax=Integer.MIN_VALUE;
+        int posMin=Integer.MAX_VALUE;
+        int countNeg=0;
+        int negProd=1;
+        //find maximum of negative numbers and minimum of positive numbers
+            for(int i=0;i<n;i++)
+            {
+                if(a[i]<0)
+                {
+                    if(a[i]>negMax)
+                    {
+                        negMax=a[i];
+                    }
+                }
+                else
+                {
+                    if(a[i]<posMin)
+                    {
+                        posMin=a[i];
+                    }
+                }
+            }
+           System.out.println("negMax:"+negMax+"  posMin:"+posMin);
+        for(int i=0;i<n;i++)
+        {
+            if(a[i]<0)
+            {
+                countNeg++;
+            }
+        }
+        if(countNeg%2==0 && countNeg>=1)
+        {
+            
+           //calculating product
+           int negativeremoved=0;
+           for(int i=0;i<n;i++)
+           {
+                if(a[i]==negMax && negativeremoved!=1)
+                {
+                    negativeremoved=1;
+                }
+                else
+                {
+                    negProd=negProd*a[i];
+                }
+           }
+        }
+        else if(countNeg%2!=0 && countNeg>=1)
+        {
+            for(int i=0;i<n;i++)
+            {
+                if(a[i]==0)
+                {
+                    continue;
+                }
+                else
+                {
+                    negProd=negProd*a[i];
+                }
+                
+            }
+        }
+        else if(countNeg==0)
+        {
+            return posMin;
+        }
+        return negProd;
+    }
+    
+}
